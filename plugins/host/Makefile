@@ -8,11 +8,16 @@ READELF ?= $(CROSS_COMPILE)readelf
 
 OBJS = main.o
 
-CFLAGS += -Wall -I../ta/include -I$(TEEC_EXPORT)/include -I./include
+CFLAGS += -Wall -I../ta/include -I./include
 CFLAGS += -DBINARY_PREFIX=\"TEE-EXMPL\"
 
 #Add/link other required libraries here
-LDADD += -lteec -L$(TEEC_EXPORT)/lib
+LDADD += -lteec
+
+ifneq ($(TEEC_EXPORT),)
+CFLAGS += -I$(TEEC_EXPORT)/include
+LDADD += -L$(TEEC_EXPORT)/lib
+endif
 
 BINARY = optee_example_plugins
 

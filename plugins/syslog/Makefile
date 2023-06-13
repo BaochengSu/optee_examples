@@ -13,6 +13,10 @@ PLUGIN_SRS		= $(wildcard ./*.c)
 PLUGIN_OBJ		= $(patsubst %.c, %.o, $(PLUGIN_SRS))
 PLUGIN_INCLUDES_DIR	= $(CURDIR) $(TEEC_EXPORT)/include
 
+ifneq ($(TEEC_EXPORT),)
+PLUGIN_INCLUDES_DIR += $(TEEC_EXPORT)/include
+endif
+
 PLUGIN_INCLUDES		= $(addprefix -I, $(PLUGIN_INCLUDES_DIR))
 PLUGIN_CCFLAGS		= $(CFLAGS) -Wall -fPIC
 PLUGIN_LDFLAGS		= $(LDFLAGS) -shared
